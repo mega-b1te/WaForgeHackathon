@@ -59,40 +59,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
 
                 setState(() {
-                  name =
-                      "Product: ${product.product!.getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")}";
-                  ingredients =
-                      product.product!. /*productName!*/ ingredientsText!;
-                  List<Ingredient>? ingredientsList =
-                      product.product!.ingredients;
-                  List<String>? allergensList = [];
-                  whichAllergens = "";
 
-                  for (int i = 0; i < allergies.length; i++) {
-                    allergensList.add("");
-                  }
+                  if (product.product != null) {
+                    name =
+                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH)/*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
+                    ingredients =
+                        product.product!. /*productName!*/ ingredientsText!;
+                    List<Ingredient>? ingredientsList =
+                        product.product?.ingredients;
+                    List<String>? allergensList = [];
+                    whichAllergens = "";
 
-                  for (int i = 0; i < ingredientsList!.length; i++) {
-                    String? currentIngredient = ingredientsList[i].text;
+                    for (int i = 0; i < allergies.length; i++) {
+                      allergensList.add("");
+                    }
 
-                    for (int j = 0; j < allergies.length; j++) {
-                      if (allergensList[j].compareTo("") == 0) {
-                        if (currentIngredient!
-                            .toUpperCase()
-                            .contains(allergies[j].toUpperCase())) {
-                          allergensList.insert(
-                              j, "Has Allergen: $currentIngredient\n");
-                        } else {
-                          whichAllergens += allergensList[j];
-                          allergensList.insert(
-                              j, "No Allergen: ${allergies[j]}\n");
+                    for (int i = 0; i < ingredientsList!.length; i++) {
+                      String? currentIngredient = ingredientsList[i].text;
+
+                      for (int j = 0; j < allergies.length; j++) {
+                        //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
+                        if (allergensList[j].compareTo("") == 0 ||
+                            allergensList[j].contains("No")) {
+                          if (currentIngredient!
+                              .toUpperCase()
+                              .contains(allergies[j].toUpperCase())) {
+                            allergensList.insert(
+                                j, "Has Allergen: $currentIngredient\n");
+
+                            allergensList.removeAt(j + 1);
+                          } else {
+                            allergensList.insert(
+                                j, "No Allergen: ${allergies[j]}\n");
+
+                            allergensList.removeAt(j + 1);
+                          }
                         }
                       }
                     }
-                  }
 
-                  for (int i = 0; i < allergensList.length; i++) {
-                    //whichAllergens += allergensList[i];
+                    for (int i = 0; i < allergensList.length; i++) {
+                      whichAllergens += allergensList[i];
+                    }
+                  }else{
+                    name =
+                        "Error With Scanning";
+                    whichAllergens = "";
+                    ingredients = "Please Try Again";
+
                   }
 
                   // for(int i = 0; i < allergies.length; i++){
