@@ -182,8 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     
 
                     for(int j = 0; j < allergies.length; j++){
-                      whichAllergens += j.toString();
+                      
                       if(allergensList[j] != ""){
+                        whichAllergens += j.toString();
                         if(currentIngredient!.toUpperCase().contains(allergies[j].toUpperCase())){
                           allergensList.insert(j, "Has Allergen: $currentIngredient\n");
                           
