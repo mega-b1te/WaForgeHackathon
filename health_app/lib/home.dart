@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               ingredients,
-              style: TextStyle(fontSize: 10),
+              style: const TextStyle(fontSize: 10),
             ),
             Text(
               whichAllergens,
@@ -43,7 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () async {
-                var tempString = null;
+                // ignore: prefer_typing_uninitialized_variables
+                var tempString;
                 var res = await Navigator.push(
                     context,
                     MaterialPageRoute(
