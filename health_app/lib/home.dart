@@ -10,8 +10,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String textValue = 'Initial text';
+  String name = 'Initial Name';
+  String ingredients = 'Initial Ingredients';
+  String whichAllergens = 'Initial No Allergens';
+  List<String> allergies = ["Peanut", "Egg", "Sugar"];
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +24,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        //title: Text(widget.title),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              textValue,
-              style: const TextStyle(fontSize: 20),
+              name,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             Text(
-              '$_counter',
+              ingredients,
+              style: TextStyle(fontSize: 10),
+            ),
+            Text(
+              whichAllergens,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             ElevatedButton(
               onPressed: () async {
-                // ignore: prefer_typing_uninitialized_variables
-                var tempString;
+                var tempString = null;
                 var res = await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -57,8 +59,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
 
                 setState(() {
-                  textValue =
+                  name =
+                      "Product: ${product.product!.getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")}";
+                  ingredients =
                       product.product!. /*productName!*/ ingredientsText!;
+                  List<Ingredient>? ingredientsList =
+                      product.product!.ingredients;
+                  List<String>? allergensList = [];
+                  whichAllergens = "";
+
+                  for (int i = 0; i < allergies.length; i++) {
+                    allergensList.add("");
+                  }
+
+                  for (int i = 0; i < ingredientsList!.length; i++) {
+                    String? currentIngredient = ingredientsList[i].text;
+
+                    for (int j = 0; j < allergies.length; j++) {
+                      if (allergensList[j].compareTo("") == 0) {
+                        if (currentIngredient!
+                            .toUpperCase()
+                            .contains(allergies[j].toUpperCase())) {
+                          allergensList.insert(
+                              j, "Has Allergen: $currentIngredient\n");
+                        } else {
+                          whichAllergens += allergensList[j];
+                          allergensList.insert(
+                              j, "No Allergen: ${allergies[j]}\n");
+                        }
+                      }
+                    }
+                  }
+
+                  for (int i = 0; i < allergensList.length; i++) {
+                    //whichAllergens += allergensList[i];
+                  }
+
+                  // for(int i = 0; i < allergies.length; i++){
+                  //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
+                  //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
+                  //   }else{
+                  //     whichAllergens += "No Allergen: ${allergies[i]}\n";
+                  //   }
+                  // }
                 });
               },
               child: const Text('Open Scanner'),
