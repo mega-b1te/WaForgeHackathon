@@ -68,6 +68,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String textValue = 'Initial text';
+
+  
+
 
   void _incrementCounter() {
     setState(() {
@@ -80,8 +84,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
+    OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Health App');
+    OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
+      OpenFoodFactsLanguage.ENGLISH
+    ];
+
+    OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -117,8 +129,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              textValue,
+              style: TextStyle(fontSize: 20),
             ),
             Text(
               '$_counter',
@@ -127,15 +140,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
           ElevatedButton(
               onPressed: () async {
+                var tempString = null;
                 var res = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SimpleBarcodeScannerPage(),
                     ));
+                if (res is String) {
+                    tempString = res;
+                }
+
+                var product = await OpenFoodAPIClient.getProductV3(
+                    ProductQueryConfiguration(tempString, 
+                    version: ProductQueryVersion.v3
+                    ),
+                  );
+
                 setState(() {
-                  if (res is String) {
-                    var result = res;
-                  }
+                  textValue = product.product!./*productName!*/ingredientsText!;
+                  
                 });
               },
               child: const Text('Open Scanner'),
