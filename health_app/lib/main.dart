@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
-// ...
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
-await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-);
+// // ...
+
+// await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+// );
 
 void main() {
   runApp(const MyApp());
@@ -123,30 +126,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
           ElevatedButton(
-            onPressed: () async{
-              final testBarcode = '007430015859';
-
-              // final results = await OpenFoodFacts.searchProducts(query: 'apple juice');
-
-              // for (Product product in results) {
-              //   print(product.productGenericName);
-              // }
-
-
-              
-            },
-            child: const Text('Scan Barcode'),
-          ),
-
-          Text(
-            'Item Name:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-
-          Text(
-            '...',
-            style: Theme.of(context).textTheme.bodyMedium,
-          )
+              onPressed: () async {
+                var res = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SimpleBarcodeScannerPage(),
+                    ));
+                setState(() {
+                  if (res is String) {
+                    var result = res;
+                  }
+                });
+              },
+              child: const Text('Open Scanner'),
+            )
 
           ],
         ),
