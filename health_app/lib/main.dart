@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
-// ...
-
-await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-);
-
 void main() {
   runApp(const MyApp());
 }
@@ -121,33 +112,26 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            ElevatedButton(
+              onPressed: () async {
+                final testBarcode = '007430015859';
 
-          ElevatedButton(
-            onPressed: () async{
-              final testBarcode = '007430015859';
+                // final results = await OpenFoodFacts.searchProducts(query: 'apple juice');
 
-              // final results = await OpenFoodFacts.searchProducts(query: 'apple juice');
-
-              // for (Product product in results) {
-              //   print(product.productGenericName);
-              // }
-
-
-              
-            },
-            child: const Text('Scan Barcode'),
-          ),
-
-          Text(
-            'Item Name:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-
-          Text(
-            '...',
-            style: Theme.of(context).textTheme.bodyMedium,
-          )
-
+                // for (Product product in results) {
+                //   print(product.productGenericName);
+                // }
+              },
+              child: const Text('Scan Barcode'),
+            ),
+            Text(
+              'Item Name:',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              '...',
+              style: Theme.of(context).textTheme.bodyMedium,
+            )
           ],
         ),
       ),
