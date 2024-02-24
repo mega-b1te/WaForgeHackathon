@@ -183,12 +183,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                     for(int j = 0; j < allergies.length; j++){
                       
-                      if(allergensList[j] != ""){
-                        whichAllergens += j.toString();
+                      if(allergensList[j].compareTo("") == 0){
                         if(currentIngredient!.toUpperCase().contains(allergies[j].toUpperCase())){
+                          
                           allergensList.insert(j, "Has Allergen: $currentIngredient\n");
                           
                         }else{
+                          whichAllergens += allergensList[j];
                           allergensList.insert(j, "No Allergen: ${allergies[j]}\n");
                         }
                       }
@@ -198,8 +199,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   for(int i = 0; i < allergensList.length; i++){
                     //whichAllergens += allergensList[i];
-                    debugPrint(allergensList[i]);
-
                   }
 
                   // for(int i = 0; i < allergies.length; i++){
