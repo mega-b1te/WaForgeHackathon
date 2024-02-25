@@ -68,10 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
 
                 setState(() {
-
                   if (product.product != null) {
                     name =
-                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH)/*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
+                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
                     ingredients =
                         product.product!. /*productName!*/ ingredientsText!;
                     List<Ingredient>? ingredientsList =
@@ -108,22 +107,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
 
                     for (int i = 0; i < allergensList.length; i++) {
-                      if(!allergensList[i].contains("No")){
+                      if (!allergensList[i].contains("No")) {
                         whichAllergens += allergensList[i];
                       }
                     }
 
-                    if(whichAllergens.compareTo("") == 0){
+                    if (whichAllergens.compareTo("") == 0) {
                       canEat = "You can eat this";
-                    }else{
+                    } else {
                       canEat = "You can't eat this";
                     }
-                  }else{
-                    name =
-                        "Error With Scanning";
+                  } else {
+                    name = "Error With Scanning";
                     whichAllergens = "";
                     ingredients = "Please Try Again";
-
                   }
 
                   // for(int i = 0; i < allergies.length; i++){
@@ -142,12 +139,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: Container(
         child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: Colors.black,
               padding: EdgeInsets.all(16),
+              tabBorder: Border(
+                  bottom: BorderSide(color: Colors.black, width: 1.5),
+                  top: BorderSide(color: Colors.black, width: 1.5),
+                  left: BorderSide(color: Colors.black, width: 1.5),
+                  right: BorderSide(color: Colors.black, width: 1.5)),
               tabs: [
                 GButton(
                   icon: Icons.home,
