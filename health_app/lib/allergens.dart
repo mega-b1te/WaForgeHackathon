@@ -47,34 +47,28 @@ class AllergensState extends State<Allergens> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(height: 5),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         const SizedBox(
                           width: 40.0,
                         ),
                         const Spacer(),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 40,
-                              child: Text(
-                                widget.name,
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
-                              ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Text(widget.name,
+                                  style: TextStyle(fontSize: 20)),
                             ),
                           ],
                         ),
-                        const Spacer(),
+                        Spacer(),
                         FloatingActionButton.small(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MyHomePage(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           backgroundColor: ThemeClass().primaryColor,
                           foregroundColor: ThemeClass().bColor,
@@ -84,29 +78,26 @@ class AllergensState extends State<Allergens> {
                         ),
                       ]),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        //const Spacer(),
-                        Text(
-                          widget.ingredients,
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                        Text(
-                          widget.canEat,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        Text(
-                          widget.whichAllergens,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Go back!'),
-                        ),
-                      ],
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          //const Spacer(),
+                          Text(
+                            widget.canEat,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          Text(
+                            widget.whichAllergens,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            widget.ingredients,
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
