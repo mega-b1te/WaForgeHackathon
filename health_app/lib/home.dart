@@ -153,32 +153,32 @@ class _MyHomePageState extends State<MyHomePage> {
               tabs: [
                 GButton(
                   icon: Icons.home,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Home',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
                 ),
                 GButton(
                   icon: Icons.camera_alt,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Scan',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
                 ),
                 GButton(
                   icon: Icons.person,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Food',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
                 ),
               ]),
