@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String name = 'Initial Name';
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
-  String canEat = 'You can Eat';
+  String canEat = 'This is safe for consumption';
   //List<String> allergies = ["Peanut", "Egg", "Sugar"];
   List<List<String>> history = [[]];
 
@@ -138,9 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
 
                         if (whichAllergens.compareTo("") == 0) {
-                          canEat = "You can eat this";
+                          canEat = "This is safe for consumption";
                         } else {
-                          canEat = "You can't eat this";
+                          canEat = "We would not recommend consumption";
                         }
                       } else {
                         name = "Error With Scanning";
@@ -172,25 +172,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ingredients: this.ingredients,
                         whichAllergens: this.whichAllergens,
                         canEat: this.canEat,
+                        image: this.imageUrl,
                         allergies: this.widget.allergies,
                       ),
                     ),
                   );
-                } else if (index == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => display.Allergens(
-                        key: UniqueKey(),
-                        name: 'this.name',
-                        ingredients: 'this.ingredients',
-                        whichAllergens: 'this.whichAllergens',
-                        canEat: 'this.canEat',
-                        allergies: ['this.allergies'],
-                      ),
-                    ),
-                  );
-                }
+                } 
               },
 
               //color: Color.fromARGB(255, 195, 131, 27),
