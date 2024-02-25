@@ -53,6 +53,12 @@ class AllergensState extends State<Allergens> {
               widget.whichAllergens,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+            },
+            child: const Text('Go back!'),
+        ),
           ],
         ),
       ),
