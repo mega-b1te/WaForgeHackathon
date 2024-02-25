@@ -114,11 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         name = "Error With Scanning";
                         whichAllergens = "";
                         ingredients = "Please Try Again";
+                        canEat = "";
                       }
                     } else {
                       name = "Error With Scanning";
                       whichAllergens = "";
                       ingredients = "Please Try Again";
+                      canEat = "";
                     }
 
                     // for(int i = 0; i < allergies.length; i++){
