@@ -7,6 +7,7 @@ import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:health_app/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -38,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(),
@@ -64,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 //final SharedPreferences localHistory = await local_history;
                 //localHistory.clear();
                 if (index == 1) {
+                  imageUrl = "https://cdn.discordapp.com/attachments/1206499194194497546/1211425314232860712/rcLxML7Ri.png?ex=65ee26be&is=65dbb1be&hm=cb1a8c22c2769872510cbccedf8cff71b94cbba38a03534db5b52a5b52247de5&";
+                  
                   var tempString;
                   var res = await Navigator.push(
                       context,
@@ -103,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           String? currentIngredient = ingredientsList[i].text;
 
                           for (int j = 0; j < allergies.length; j++) {
-                            //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
                             if (allergensList[j].compareTo("") == 0 ||
                                 allergensList[j].contains("No")) {
                               if (currentIngredient!
@@ -228,10 +231,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  
+
   Future<ListView> getListView() async {
-    //var listItems = getListElements();
     final SharedPreferences localHistory = await local_history;
     int listSize = (localHistory.getInt('itemAmt') ?? 0);
+
+    for(int i = 0; i < listSize; i++){
+      history[i] = localHistory.getStringList((i).toString())!;
+    }
 
     if(listSize == 0){
       return ListView();
