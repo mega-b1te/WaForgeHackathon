@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/theme.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
@@ -30,32 +31,37 @@ class AllergensState extends State<Allergens> {
       extendBody: true,
       appBar: AppBar(),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              widget.name,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            Text(
-              widget.ingredients,
-              style: const TextStyle(fontSize: 10),
-            ),
-            Text(
-              widget.canEat,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Text(
-              widget.whichAllergens,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go back!'),
-            ),
-          ],
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(color: ThemeClass().primaryColor),
+        child: Container(
+          color: ThemeClass().wColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                widget.name,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              Text(
+                widget.ingredients,
+                style: const TextStyle(fontSize: 10),
+              ),
+              Text(
+                widget.canEat,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(
+                widget.whichAllergens,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Go back!'),
+              ),
+            ],
+          ),
         ),
       ),
     );

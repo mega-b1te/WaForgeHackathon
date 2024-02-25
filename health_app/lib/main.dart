@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/allergens.dart';
 import 'package:health_app/home.dart';
 
 void main() {
@@ -16,7 +17,14 @@ class MyApp extends StatelessWidget {
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: Allergens(
+        key: UniqueKey(),
+        name: "this.name",
+        ingredients: "this.ingredients",
+        whichAllergens: "this.whichAllergens",
+        canEat: "this.canEat",
+        allergies: const ["this.allergies"],
+      ),
     );
   }
 }
