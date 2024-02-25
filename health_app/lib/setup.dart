@@ -13,54 +13,113 @@ class Setup extends StatefulWidget {
 }
 
 class SetupState extends State<Setup> {
+  String otherAllergen = '';
   List<String> selectedItems = [];
+  final myController = TextEditingController();
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       extendBody: true,
       appBar: AppBar(),
       body: Container(
         child: Column(
           children: <Widget>[
-
             DropdownSearch<String>.multiSelection(
-                items: ["Peanut", "Tree Nut", "Almonds", 'Milk', 'Egg', 'Shellfish', 'Gluten', 'Soybean', 'Sesame', 'Gelatin', 'Other'],
-                popupProps: PopupPropsMultiSelection.menu(
+              items: [
+                "Peanut",
+                "Tree Nut",
+                "Almonds",
+                'Milk',
+                'Egg',
+                'Shellfish',
+                'Gluten',
+                'Soybean',
+                'Sesame',
+                'Gelatin',
+                'Other'
+              ],
+              popupProps: PopupPropsMultiSelection.menu(
                 showSelectedItems: true,
                 //disabledItemFn: (String s) => s.startsWith('I'),
               ),
-              onChanged: (values){
-                setState((){
+              onChanged: (values) {
+                setState(() {
                   selectedItems = values;
                 });
               },
               selectedItems: [],
             ),
-            
             ElevatedButton(
               onPressed: () {
                 log(selectedItems.toString());
 
-                if(selectedItems.contains("Other")){
+                if (selectedItems.contains("Other")) {
+                  selectedItems.remove("Other");
 
-                }else{
+                  setState(() {
+                    _isVisible = true;
+                  });
+                  //_toggleVisibility();
+                } else {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyHomePage(
-                        UniqueKey(),
-                        selectedItems
-                        
-                      ),
+                      builder: (context) =>
+                          MyHomePage(UniqueKey(), selectedItems),
                     ),
                   );
                 }
-                
+
                 //Navigator.pop(context);
               },
               child: const Text('Save Allergens'),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: TextField(
+                controller: myController,
+                onChanged: (value) {
+                  setState(() {
+                    otherAllergen = value;
+                  });
+                },
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    selectedItems.add(otherAllergen);
+                    myController.clear();
+                  });
+
+                  //Navigator.pop(context);
+                },
+                child: const Text('Add New Allergens'),
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: ElevatedButton(
+                onPressed: () {
+                  log(selectedItems.toString());
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MyHomePage(UniqueKey(), selectedItems),
+                      ),
+                    );
+                  });
+
+                  //Navigator.pop(context);
+                },
+                child: const Text('Navigate to Home Page'),
+              ),
             ),
           ],
         ),
