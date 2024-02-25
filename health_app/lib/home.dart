@@ -248,9 +248,14 @@ class _MyHomePageState extends State<MyHomePage> {
     var listView = ListView.builder(
         itemCount: listSize,
         itemBuilder: (BuildContext context, int index) {
+          
           List<String> current =
               localHistory.getStringList((index).toString()) ??
                   ["Error", "Error", "Error"];
+
+          for (int i = 0; i < current.length; i++){
+            log("Current $i: ${current[i]}");
+          }
 
           if(current.length < 3){
             return ListTile();
