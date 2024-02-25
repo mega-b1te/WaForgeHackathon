@@ -56,18 +56,13 @@ class AllergensState extends State<Allergens> {
                         const Spacer(),
                         Row(
                           children: <Widget>[
-                            ListView(
-                              children: [
-                                SizedBox(
-                                  height: 80,
-                                  child: Text(
-                                    widget.name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge,
-                                  ),
-                                )
-                              ],
+                            SizedBox(
+                              height: 40,
+                              child: Text(
+                                widget.name,
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
                             ),
                           ],
                         ),
