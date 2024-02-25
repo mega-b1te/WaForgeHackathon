@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:health_app/allergens.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -12,11 +14,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
   String name = 'Initial Name';
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
   String canEat = 'You can Eat';
   List<String> allergies = ["Peanut", "Egg", "Sugar"];
+
+  void scanStuff() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     whichAllergens += "No Allergen: ${allergies[i]}\n";
                   //   }
                   // }
+                  Allergens();
                 });
               },
               child: const Text('Open Scanner'),
@@ -138,13 +146,22 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: Container(
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                if (index == 1) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                }
+              },
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: Colors.black,
-              padding: EdgeInsets.all(16),
+              backgroundColor: Colors.white,
+              padding: const EdgeInsets.all(16),
               tabBorder: Border(
                   bottom: BorderSide(color: Colors.black, width: 1.5),
                   top: BorderSide(color: Colors.black, width: 1.5),
