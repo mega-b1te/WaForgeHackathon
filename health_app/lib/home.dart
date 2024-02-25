@@ -4,6 +4,7 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:health_app/allergens.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,12 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String canEat = 'You can Eat';
   List<String> allergies = ["Peanut", "Egg", "Sugar"];
 
-  void scanStuff(){
-    setState((){
-
-    });
+  void scanStuff() {
+    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     whichAllergens += "No Allergen: ${allergies[i]}\n";
                   //   }
                   // }
+                  Allergens();
                 });
               },
               child: const Text('Open Scanner'),
@@ -150,25 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
-
-            selectedIndex: _selectedIndex,
-            onTabChange: (index){
-
-              if(index == 1){
-
-                setState((){
-                _selectedIndex = index;
-                });
-              }
-
-              
-            },
-            
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                if (index == 1) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                }
+              },
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: Colors.black,
               backgroundColor: Colors.white,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               tabBorder: Border(
                   bottom: BorderSide(color: Colors.black, width: 1.5),
                   top: BorderSide(color: Colors.black, width: 1.5),
@@ -186,7 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 GButton(
-                  
                   icon: Icons.camera_alt,
                   iconColor: Color.fromARGB(255, 113, 70, 0),
                   text: 'Scan',
@@ -195,7 +187,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-                  
                 ),
                 GButton(
                   icon: Icons.person,
@@ -206,15 +197,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-
                 ),
-
-                
-
-                
               ]),
-
-            
         ),
       ),
     );
