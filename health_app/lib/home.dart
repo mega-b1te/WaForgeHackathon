@@ -186,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 GButton(
                   icon: Icons.person,
                   iconColor: Color.fromARGB(255, 141, 178, 182),
-                  text: 'Food',
+                  text: 'Profile',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
