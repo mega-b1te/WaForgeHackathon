@@ -90,13 +90,17 @@ class AllergensState extends State<Allergens> {
                           Text(
                             widget.canEat,
                             style: const TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'Hind',
-                            ),
+                                fontSize: 35,
+                                fontFamily: 'Hind',
+                                fontWeight: FontWeight.bold),
                           ),
                           Text(
                             widget.whichAllergens,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Hind',
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                           Text(
                             widget.ingredients,
