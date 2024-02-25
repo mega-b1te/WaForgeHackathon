@@ -176,14 +176,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   );
-                } //else if(index == 2){
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => (profile.Profile()),
-                //     ),
-                //   );
-                // }
+                } else if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => display.Allergens(
+                        key: UniqueKey(),
+                        name: 'this.name',
+                        ingredients: 'this.ingredients',
+                        whichAllergens: 'this.whichAllergens',
+                        canEat: 'this.canEat',
+                        allergies: ['this.allergies'],
+                      ),
+                    ),
+                  );
+                }
               },
 
               //color: Color.fromARGB(255, 195, 131, 27),
@@ -241,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final SharedPreferences localHistory = await local_history;
     int listSize = (localHistory.getInt('itemAmt') ?? 0);
 
-    if(listSize == 0){
+    if (listSize == 0) {
       return ListView();
     }
 
@@ -252,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
               localHistory.getStringList((index).toString()) ??
                   ["Error", "Error", "Error"];
 
-          if(current.length < 3){
+          if (current.length < 3) {
             return ListTile();
           }
 
@@ -267,8 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
-            title:
-                Text("${current[0]}\n${current[1]}\n"),
+            title: Text("${current[0]}\n${current[1]}\n"),
             onTap: () {
               debugPrint('${[index]} was tapped');
             },
