@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(),
       body: Center(),
       bottomNavigationBar: Container(
+        color: ThemeClass().secondaryColor,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
@@ -152,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: ThemeClass().wColor,
-              backgroundColor: ThemeClass().bColor,
+              backgroundColor: ThemeClass().secondaryColor,
               padding: const EdgeInsets.all(16),
               // tabBorder: Border(
               //     bottom: BorderSide(color: Colors.black, width: 1.5),
@@ -161,9 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
               //     right: BorderSide(color: Colors.black, width: 1.5)),
               tabs: [
                 GButton(
-                  backgroundColor: ThemeClass().secondaryColor,
+                  backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.home,
-                  iconColor: ThemeClass().secondaryColor,
+                  iconColor: ThemeClass().primaryColor,
                   text: 'Home',
                   textStyle: TextStyle(
                     fontSize: 18,
@@ -172,9 +173,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 GButton(
-                  backgroundColor: ThemeClass().secondaryColor,
+                  backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.camera_alt,
-                  iconColor: ThemeClass().secondaryColor,
+                  iconColor: ThemeClass().primaryColor,
                   text: 'Scan',
                   textStyle: TextStyle(
                     fontSize: 18,
@@ -183,9 +184,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 GButton(
-                  backgroundColor: ThemeClass().secondaryColor,
+                  backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.person,
-                  iconColor: ThemeClass().secondaryColor,
+                  iconColor: ThemeClass().primaryColor,
                   text: 'Profile',
                   textStyle: TextStyle(
                     fontSize: 18,
