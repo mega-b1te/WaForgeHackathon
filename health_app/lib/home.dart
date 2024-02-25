@@ -4,6 +4,7 @@ import 'package:health_app/profile.dart' as profile;
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:health_app/theme.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -157,43 +158,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
-              activeColor: Colors.black,
-              backgroundColor: Colors.white,
+              activeColor: ThemeClass().wColor,
+              backgroundColor: ThemeClass().bColor,
               padding: const EdgeInsets.all(16),
-              tabBorder: Border(
-                  bottom: BorderSide(color: Colors.black, width: 1.5),
-                  top: BorderSide(color: Colors.black, width: 1.5),
-                  left: BorderSide(color: Colors.black, width: 1.5),
-                  right: BorderSide(color: Colors.black, width: 1.5)),
+              // tabBorder: Border(
+              //     bottom: BorderSide(color: Colors.black, width: 1.5),
+              //     top: BorderSide(color: Colors.black, width: 1.5),
+              //     left: BorderSide(color: Colors.black, width: 1.5),
+              //     right: BorderSide(color: Colors.black, width: 1.5)),
               tabs: [
                 GButton(
+                  backgroundColor: ThemeClass().secondaryColor,
                   icon: Icons.home,
-                  iconColor: Color.fromARGB(255, 141, 178, 182),
+                  iconColor: ThemeClass().secondaryColor,
                   text: 'Home',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 141, 178, 182),
+                    color: ThemeClass().wColor,
                   ),
                 ),
                 GButton(
+                  backgroundColor: ThemeClass().secondaryColor,
                   icon: Icons.camera_alt,
-                  iconColor: Color.fromARGB(255, 141, 178, 182),
+                  iconColor: ThemeClass().secondaryColor,
                   text: 'Scan',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 141, 178, 182),
+                    color: ThemeClass().wColor,
                   ),
                 ),
                 GButton(
+                  backgroundColor: ThemeClass().secondaryColor,
                   icon: Icons.person,
-                  iconColor: Color.fromARGB(255, 141, 178, 182),
+                  iconColor: ThemeClass().secondaryColor,
                   text: 'Profile',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 141, 178, 182),
+                    color: ThemeClass().wColor,
                   ),
                 ),
               ]),
