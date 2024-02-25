@@ -156,7 +156,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => display.Allergens(),
+                      builder: (context) => display.Allergens(
+                        key: UniqueKey(),
+                        name: name,
+                        ingredients: ingredients,
+                        whichAllergens: whichAllergens,
+                        canEat: canEat,
+                        allergies: allergies,
+                      ),
                     ),
                   );
 

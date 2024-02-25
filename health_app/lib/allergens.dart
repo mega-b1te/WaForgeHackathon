@@ -4,7 +4,20 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class Allergens extends StatefulWidget {
-  const Allergens({super.key});
+  final String name;
+  final String ingredients;
+  final String whichAllergens;
+  final String canEat;
+  final List<String> allergies;
+
+  const Allergens({
+    required Key key,
+    required this.name,
+    required this.ingredients,
+    required this.whichAllergens,
+    required this.canEat,
+    required this.allergies,
+  }) : super(key: key);
 
   @override
   State<Allergens> createState() => AllergensState();
@@ -12,7 +25,6 @@ class Allergens extends StatefulWidget {
 
 class AllergensState extends State<Allergens> {
 
-  int _selectedIndex = 0;
   String name = 'Initial Name';
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
