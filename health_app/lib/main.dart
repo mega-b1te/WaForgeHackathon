@@ -3,6 +3,7 @@ import 'package:health_app/allergens.dart';
 import 'package:health_app/home.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

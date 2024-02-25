@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/allergens.dart' as display;
 import 'package:health_app/profile.dart' as profile;
@@ -5,6 +6,7 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:health_app/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -14,11 +16,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Future<SharedPreferences> local_history =
+      SharedPreferences.getInstance();
+  var imageUrl = "";
   String name = 'Initial Name';
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
   String canEat = 'You can Eat';
   List<String> allergies = ["Peanut", "Egg", "Sugar"];
+  List<List<String>> history = [[]];
 
   void scanStuff() {
     setState(() {});
@@ -43,12 +49,28 @@ class _MyHomePageState extends State<MyHomePage> {
               'https://cdn.discordapp.com/attachments/1206499194194497546/1211074826391912458/image.png?ex=65ece053&is=65da6b53&hm=fa2e7870e9d581a9f1987afafd2d2573fc11a8a6f6c66f4e433cade4ce775212&'),
         ),
       ),
+      // body: FutureBuilder<ListView>(
+      //   future: getListView(),
+      //   builder: (BuildContext context, AsyncSnapshot<ListView> snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return Center(child: CircularProgressIndicator());
+      //     } else if (snapshot.hasError) {
+      //       return Text('Error: ${snapshot.error}');
+      //     } else {
+      //       return snapshot.data!;
+      //     }
+      //   },
+      // ),
+      //body: ListView(),
       bottomNavigationBar: Container(
         color: ThemeClass().secondaryColor,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
               onTabChange: (index) async {
+                //Resetting the local history
+                //final SharedPreferences localHistory = await local_history;
+                //localHistory.clear();
                 if (index == 1) {
                   var tempString;
                   var res = await Navigator.push(
@@ -66,7 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
 
                   setState(() {
+                    product.product?.imageFrontUrl;
                     if (product.product != null) {
+                      imageUrl = "${product.product?.imageFrontUrl}";
+                      //var imageWidget = Image.network(imageUrl);
                       name =
                           "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
 
@@ -129,19 +154,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       ingredients = "Please Try Again";
                       canEat = "";
                     }
-
-                    // for(int i = 0; i < allergies.length; i++){
-                    //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
-                    //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
-                    //   }else{
-                    //     whichAllergens += "No Allergen: ${allergies[i]}\n";
-                    //   }
-                    // }
                   });
 
-                  // setState((){
-                  // _selectedIndex = index;
-                  // });
+                  final SharedPreferences localHistory = await local_history;
+                  history.add([name, canEat, imageUrl]);
+                  localHistory.setInt("itemAmt", history.length);
+                  for (int i = 0; i < history.length; i++) {
+                    localHistory.setStringList((i).toString(), history[i]);
+                  }
 
                   Navigator.push(
                     context,
@@ -214,5 +234,47 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  Future<ListView> getListView() async {
+    //var listItems = getListElements();
+    final SharedPreferences localHistory = await local_history;
+    int listSize = (localHistory.getInt('itemAmt') ?? 0);
+
+    if(listSize == 0){
+      return ListView();
+    }
+
+    var listView = ListView.builder(
+        itemCount: listSize,
+        itemBuilder: (BuildContext context, int index) {
+          List<String> current =
+              localHistory.getStringList((index).toString()) ??
+                  ["Error", "Error", "Error"];
+
+          if(current.length < 3){
+            return ListTile();
+          }
+
+          return ListTile(
+            leading: SizedBox(
+              width: 100,
+              child: CachedNetworkImage(
+                fit: BoxFit.fitHeight,
+                imageUrl: current[2],
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+            title:
+                Text("${current[0]}\n${current[1]}\n"),
+            onTap: () {
+              debugPrint('${[index]} was tapped');
+            },
+          );
+        });
+
+    return listView;
   }
 }
