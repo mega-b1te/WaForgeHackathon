@@ -238,6 +238,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 // setState((){
                 // _selectedIndex = index;
                 // });
+
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Allergens()));
+
               }
 
               
