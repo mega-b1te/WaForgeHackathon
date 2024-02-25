@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/allergens.dart';
 import 'package:health_app/home.dart';
+import 'package:health_app/setup.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: Setup(),
     );
   }
 }
