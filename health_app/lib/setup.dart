@@ -49,7 +49,11 @@ class SetupState extends State<Setup> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyHomePage(),
+                      builder: (context) => MyHomePage(
+                        UniqueKey(),
+                        selectedItems
+                        
+                      ),
                     ),
                   );
                 }

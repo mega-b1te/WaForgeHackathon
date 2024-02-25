@@ -7,9 +7,16 @@ import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:health_app/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final List<String> allergies;
+  
+  const MyHomePage(
+    Key key,
+    this.allergies,
+  ) : super(key: key);
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -23,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
   String canEat = 'You can Eat';
-  List<String> allergies = ["Peanut", "Egg", "Sugar"];
+  //List<String> allergies = ["Peanut", "Egg", "Sugar"];
   List<List<String>> history = [[]];
 
   void scanStuff() {
@@ -38,29 +45,22 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(),
-      body: Center(
-        child: Container(
-          height: 200,
-          width: 200,
-          child: Image.network(
-              'https://cdn.discordapp.com/attachments/1206499194194497546/1211074826391912458/image.png?ex=65ece053&is=65da6b53&hm=fa2e7870e9d581a9f1987afafd2d2573fc11a8a6f6c66f4e433cade4ce775212&'),
-        ),
+      body: FutureBuilder<ListView>(
+        future: getListView(),
+        builder: (BuildContext context, AsyncSnapshot<ListView> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return snapshot.data!;
+          }
+        },
       ),
-      // body: FutureBuilder<ListView>(
-      //   future: getListView(),
-      //   builder: (BuildContext context, AsyncSnapshot<ListView> snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return Center(child: CircularProgressIndicator());
-      //     } else if (snapshot.hasError) {
-      //       return Text('Error: ${snapshot.error}');
-      //     } else {
-      //       return snapshot.data!;
-      //     }
-      //   },
-      // ),
       //body: ListView(),
       bottomNavigationBar: Container(
         color: ThemeClass().secondaryColor,
@@ -72,6 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 //final SharedPreferences localHistory = await local_history;
                 //localHistory.clear();
                 if (index == 1) {
+                  imageUrl = "https://cdn.discordapp.com/attachments/1206499194194497546/1211425314232860712/rcLxML7Ri.png?ex=65ee26be&is=65dbb1be&hm=cb1a8c22c2769872510cbccedf8cff71b94cbba38a03534db5b52a5b52247de5&";
+                  
                   var tempString;
                   var res = await Navigator.push(
                       context,
@@ -103,27 +105,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         List<String>? allergensList = [];
                         whichAllergens = "";
 
-                        for (int i = 0; i < allergies.length; i++) {
+                        for (int i = 0; i < widget.allergies.length; i++) {
                           allergensList.add("");
                         }
 
                         for (int i = 0; i < ingredientsList!.length; i++) {
                           String? currentIngredient = ingredientsList[i].text;
 
-                          for (int j = 0; j < allergies.length; j++) {
-                            //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
+                          for (int j = 0; j < widget.allergies.length; j++) {
                             if (allergensList[j].compareTo("") == 0 ||
                                 allergensList[j].contains("No")) {
                               if (currentIngredient!
                                   .toUpperCase()
-                                  .contains(allergies[j].toUpperCase())) {
+                                  .contains(widget.allergies[j].toUpperCase())) {
                                 allergensList.insert(
                                     j, "Has Allergen: $currentIngredient\n");
 
                                 allergensList.removeAt(j + 1);
                               } else {
                                 allergensList.insert(
-                                    j, "No Allergen: ${allergies[j]}\n");
+                                    j, "No Allergen: ${widget.allergies[j]}\n");
 
                                 allergensList.removeAt(j + 1);
                               }
@@ -172,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ingredients: this.ingredients,
                         whichAllergens: this.whichAllergens,
                         canEat: this.canEat,
-                        allergies: this.allergies,
+                        allergies: this.widget.allergies,
                       ),
                     ),
                   );
@@ -236,10 +237,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  
+
   Future<ListView> getListView() async {
-    //var listItems = getListElements();
     final SharedPreferences localHistory = await local_history;
     int listSize = (localHistory.getInt('itemAmt') ?? 0);
+
+    for(int i = 0; i < listSize; i++){
+      history[i] = localHistory.getStringList((i).toString())!;
+    }
 
     if(listSize == 0){
       return ListView();
@@ -248,9 +254,14 @@ class _MyHomePageState extends State<MyHomePage> {
     var listView = ListView.builder(
         itemCount: listSize,
         itemBuilder: (BuildContext context, int index) {
+          
           List<String> current =
               localHistory.getStringList((index).toString()) ??
                   ["Error", "Error", "Error"];
+
+          for (int i = 0; i < current.length; i++){
+            log("Current $i: ${current[i]}");
+          }
 
           if(current.length < 3){
             return ListTile();
