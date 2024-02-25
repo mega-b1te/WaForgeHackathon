@@ -83,6 +83,7 @@ class SetupState extends State<Setup> {
               },
               child: const Text('Save Allergens'),
             ),
+            const Spacer(flex: 4),
             Visibility(
               visible: _isVisible,
               child: TextField(
