@@ -86,7 +86,10 @@ class AllergensState extends State<Allergens> {
                           //const Spacer(),
                           Text(
                             widget.canEat,
-                            style: Theme.of(context).textTheme.headlineMedium,
+                            style: const TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'Hind',
+                            ),
                           ),
                           Text(
                             widget.whichAllergens,
@@ -94,7 +97,11 @@ class AllergensState extends State<Allergens> {
                           ),
                           Text(
                             widget.ingredients,
-                            style: const TextStyle(fontSize: 10),
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Hind',
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
