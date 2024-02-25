@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/allergens.dart' as display;
+import 'package:health_app/profile.dart' as profile;
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -141,7 +142,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
 
                   
-                }
+                }//else if(index == 2){
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => (profile.Profile()),
+                //     ),
+                //   );
+                // }
               },
 
               //color: Color.fromARGB(255, 195, 131, 27),
