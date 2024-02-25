@@ -14,7 +14,10 @@ class Setup extends StatefulWidget {
 }
 
 class SetupState extends State<Setup> {
+  String otherAllergen = '';
   List<String> selectedItems = [];
+  final myController = TextEditingController();
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,12 @@ class SetupState extends State<Setup> {
                 log(selectedItems.toString());
 
                 if (selectedItems.contains("Other")) {
+                  selectedItems.remove("Other");
+
+                  setState(() {
+                    _isVisible = true;
+                  });
+                  //_toggleVisibility();
                 } else {
                   Navigator.push(
                     context,
@@ -74,7 +83,51 @@ class SetupState extends State<Setup> {
               },
               child: const Text('Save Allergens'),
             ),
-            const Spacer(flex: 5),
+            Visibility(
+              visible: _isVisible,
+              child: TextField(
+                controller: myController,
+                onChanged: (value) {
+                  setState(() {
+                    otherAllergen = value;
+                  });
+                },
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    selectedItems.add(otherAllergen);
+                    myController.clear();
+                  });
+
+                  //Navigator.pop(context);
+                },
+                child: const Text('Add New Allergens'),
+              ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: ElevatedButton(
+                onPressed: () {
+                  log(selectedItems.toString());
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MyHomePage(UniqueKey(), selectedItems),
+                      ),
+                    );
+                  });
+
+                  //Navigator.pop(context);
+                },
+                child: const Text('Navigate to Home Page'),
+              ),
+            ),
           ],
         ),
       ),

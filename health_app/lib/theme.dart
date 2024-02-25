@@ -5,7 +5,9 @@ class ThemeClass {
   Color primaryColor = Color.fromARGB(255, 162, 194, 180);
   Color bColor = Color.fromARGB(255, 0, 0, 0);
   Color wColor = Color.fromARGB(255, 255, 255, 255);
-  Color gColor = Color.fromARGB(255, 217, 217, 217);
+  Color grColor = Color.fromARGB(255, 217, 217, 217);
+  Color rcolor = Color.fromARGB(255, 255, 0, 0);
+  Color gcolor = Color.fromARGB(255, 0, 255, 0);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: ThemeData.light().scaffoldBackgroundColor,

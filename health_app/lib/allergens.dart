@@ -44,75 +44,87 @@ class AllergensState extends State<Allergens> {
                 color: ThemeClass().wColor,
                 borderRadius: BorderRadius.circular(40.0)),
             child: Container(
-              //color: ThemeClass().bColor,
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 5),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const SizedBox(
-                          width: 40.0,
-                        ),
-                        const Spacer(),
-                        Column(
+                //color: ThemeClass().bColor,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: 5),
+                      Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(widget.name,
-                                  style: TextStyle(fontSize: 20)),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 40.0,
                             ),
-                          ],
+                            const Spacer(),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Text(widget.name,
+                                      style: TextStyle(fontSize: 20)),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            FloatingActionButton.small(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              backgroundColor: ThemeClass().primaryColor,
+                              foregroundColor: ThemeClass().bColor,
+                              child: const Icon(
+                                Icons.close,
+                              ),
+                            ),
+                          ]),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Spacer(),
+                              Container(
+                                constraints: BoxConstraints(maxHeight: 200),
+                                child: Image.network(widget.image),
+                              ),
+                              const Spacer(),
+                              Text(
+                                widget.canEat,
+                                style: TextStyle(
+                                    fontSize: 35,
+                                    fontFamily: 'Hind',
+                                    fontWeight: FontWeight.bold,
+                                    color: widget.canEat ==
+                                            'This is safe for consumption'
+                                        ? ThemeClass().gcolor
+                                        : ThemeClass().rcolor),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                widget.whichAllergens,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Hind',
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                widget.ingredients,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Hind',
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
                         ),
-                        Spacer(),
-                        FloatingActionButton.small(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          backgroundColor: ThemeClass().primaryColor,
-                          foregroundColor: ThemeClass().bColor,
-                          child: const Icon(
-                            Icons.close,
-                          ),
-                        ),
-                      ]),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          //const Spacer(),
-                          Image.network(widget.image),
-                          Text(
-                            widget.canEat,
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'Hind',
-                            ),
-                          ),
-                          Text(
-                            widget.whichAllergens,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          Text(
-                            widget.ingredients,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Hind',
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                    ])),
           ),
         ),
       ),
