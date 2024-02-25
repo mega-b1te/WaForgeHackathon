@@ -4,6 +4,7 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:health_app/allergens.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,12 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String canEat = 'You can Eat';
   List<String> allergies = ["Peanut", "Egg", "Sugar"];
 
-  void scanStuff(){
-    setState((){
-
-    });
+  void scanStuff() {
+    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     whichAllergens += "No Allergen: ${allergies[i]}\n";
                   //   }
                   // }
+                  Allergens();
                 });
               },
               child: const Text('Open Scanner'),
@@ -248,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
               gap: 9,
               activeColor: Colors.black,
               backgroundColor: Colors.white,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               tabBorder: Border(
                   bottom: BorderSide(color: Colors.black, width: 1.5),
                   top: BorderSide(color: Colors.black, width: 1.5),
@@ -257,44 +256,35 @@ class _MyHomePageState extends State<MyHomePage> {
               tabs: [
                 GButton(
                   icon: Icons.home,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Home',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
                 ),
                 GButton(
-                  
                   icon: Icons.camera_alt,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Scan',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
-                  
                 ),
                 GButton(
                   icon: Icons.person,
-                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  iconColor: Color.fromARGB(255, 141, 178, 182),
                   text: 'Food',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 141, 178, 182),
                   ),
-
                 ),
-
-                
-
-                
               ]),
-
-            
         ),
       ),
     );
