@@ -35,33 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       extendBody: true,
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              name,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            Text(
-              ingredients,
-              style: const TextStyle(fontSize: 10),
-            ),
-            Text(
-              canEat,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Text(
-              whichAllergens,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                
-              },
-              child: const Text('Open Scanner'),
-            ),
-          ],
-        ),
+        
       ),
       bottomNavigationBar: Container(
         child: Padding(
@@ -158,11 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(
                       builder: (context) => display.Allergens(
                         key: UniqueKey(),
-                        name: name,
-                        ingredients: ingredients,
-                        whichAllergens: whichAllergens,
-                        canEat: canEat,
-                        allergies: allergies,
+                        name: this.name,
+                        ingredients: this.ingredients,
+                        whichAllergens: this.whichAllergens,
+                        canEat: this.canEat,
+                        allergies: this.allergies,
                       ),
                     ),
                   );

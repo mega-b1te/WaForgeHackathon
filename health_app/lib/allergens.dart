@@ -25,11 +25,7 @@ class Allergens extends StatefulWidget {
 
 class AllergensState extends State<Allergens> {
 
-  String name = 'Initial Name';
-  String ingredients = 'Initial Ingredients';
-  String whichAllergens = 'Initial No Allergens';
-  String canEat = 'You can Eat';
-  List<String> allergies = ["Peanut", "Egg", "Sugar"];
+
 
 
   @override
@@ -42,19 +38,19 @@ class AllergensState extends State<Allergens> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              name,
+              widget.name,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             Text(
-              ingredients,
+              widget.ingredients,
               style: const TextStyle(fontSize: 10),
             ),
             Text(
-              canEat,
+              widget.canEat,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
-              whichAllergens,
+              widget.whichAllergens,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ],
