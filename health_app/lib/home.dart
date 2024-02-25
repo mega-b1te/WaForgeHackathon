@@ -144,6 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: Colors.black,
+              backgroundColor: Colors.white,
               padding: EdgeInsets.all(16),
               tabBorder: Border(
                   bottom: BorderSide(color: Colors.black, width: 1.5),
