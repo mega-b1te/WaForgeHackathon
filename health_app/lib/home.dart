@@ -151,14 +151,94 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
 
-            selectedIndex: _selectedIndex,
-            onTabChange: (index){
+            
+            onTabChange: (index) async{
 
               if(index == 1){
 
-                setState((){
-                _selectedIndex = index;
+                var tempString;
+                var res = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SimpleBarcodeScannerPage(),
+                    ));
+                if (res is String) {
+                  tempString = res;
+                }
+
+                var product = await OpenFoodAPIClient.getProductV3(
+                  ProductQueryConfiguration(tempString,
+                      version: ProductQueryVersion.v3),
+                );
+
+                setState(() {
+                  if (product.product != null) {
+                    name =
+                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
+                    ingredients =
+                        product.product!. /*productName!*/ ingredientsText!;
+                    List<Ingredient>? ingredientsList =
+                        product.product?.ingredients;
+                    List<String>? allergensList = [];
+                    whichAllergens = "";
+
+                    for (int i = 0; i < allergies.length; i++) {
+                      allergensList.add("");
+                    }
+
+                    for (int i = 0; i < ingredientsList!.length; i++) {
+                      String? currentIngredient = ingredientsList[i].text;
+
+                      for (int j = 0; j < allergies.length; j++) {
+                        //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
+                        if (allergensList[j].compareTo("") == 0 ||
+                            allergensList[j].contains("No")) {
+                          if (currentIngredient!
+                              .toUpperCase()
+                              .contains(allergies[j].toUpperCase())) {
+                            allergensList.insert(
+                                j, "Has Allergen: $currentIngredient\n");
+
+                            allergensList.removeAt(j + 1);
+                          } else {
+                            allergensList.insert(
+                                j, "No Allergen: ${allergies[j]}\n");
+
+                            allergensList.removeAt(j + 1);
+                          }
+                        }
+                      }
+                    }
+
+                    for (int i = 0; i < allergensList.length; i++) {
+                      if (!allergensList[i].contains("No")) {
+                        whichAllergens += allergensList[i];
+                      }
+                    }
+
+                    if (whichAllergens.compareTo("") == 0) {
+                      canEat = "You can eat this";
+                    } else {
+                      canEat = "You can't eat this";
+                    }
+                  } else {
+                    name = "Error With Scanning";
+                    whichAllergens = "";
+                    ingredients = "Please Try Again";
+                  }
+
+                  // for(int i = 0; i < allergies.length; i++){
+                  //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
+                  //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
+                  //   }else{
+                  //     whichAllergens += "No Allergen: ${allergies[i]}\n";
+                  //   }
+                  // }
                 });
+
+                // setState((){
+                // _selectedIndex = index;
+                // });
               }
 
               
