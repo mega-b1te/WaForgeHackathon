@@ -24,16 +24,12 @@ class Allergens extends StatefulWidget {
 }
 
 class AllergensState extends State<Allergens> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(),
-      body: Center(
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -56,9 +52,9 @@ class AllergensState extends State<Allergens> {
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
-            },
-            child: const Text('Go back!'),
-        ),
+              },
+              child: const Text('Go back!'),
+            ),
           ],
         ),
       ),
