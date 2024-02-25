@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/allergens.dart' as display;
 import 'package:openfoodfacts/openfoodfacts.dart';
-import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:health_app/allergens.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -57,88 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             ElevatedButton(
-              onPressed: () async {
-                // ignore: prefer_typing_uninitialized_variables
-                var tempString;
-                var res = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SimpleBarcodeScannerPage(),
-                    ));
-                if (res is String) {
-                  tempString = res;
-                }
-
-                var product = await OpenFoodAPIClient.getProductV3(
-                  ProductQueryConfiguration(tempString,
-                      version: ProductQueryVersion.v3),
-                );
-
-                setState(() {
-                  if (product.product != null) {
-                    name =
-                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
-                    ingredients =
-                        product.product!. /*productName!*/ ingredientsText!;
-                    List<Ingredient>? ingredientsList =
-                        product.product?.ingredients;
-                    List<String>? allergensList = [];
-                    whichAllergens = "";
-
-                    for (int i = 0; i < allergies.length; i++) {
-                      allergensList.add("");
-                    }
-
-                    for (int i = 0; i < ingredientsList!.length; i++) {
-                      String? currentIngredient = ingredientsList[i].text;
-
-                      for (int j = 0; j < allergies.length; j++) {
-                        //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
-                        if (allergensList[j].compareTo("") == 0 ||
-                            allergensList[j].contains("No")) {
-                          if (currentIngredient!
-                              .toUpperCase()
-                              .contains(allergies[j].toUpperCase())) {
-                            allergensList.insert(
-                                j, "Has Allergen: $currentIngredient\n");
-
-                            allergensList.removeAt(j + 1);
-                          } else {
-                            allergensList.insert(
-                                j, "No Allergen: ${allergies[j]}\n");
-
-                            allergensList.removeAt(j + 1);
-                          }
-                        }
-                      }
-                    }
-
-                    for (int i = 0; i < allergensList.length; i++) {
-                      if (!allergensList[i].contains("No")) {
-                        whichAllergens += allergensList[i];
-                      }
-                    }
-
-                    if (whichAllergens.compareTo("") == 0) {
-                      canEat = "You can eat this";
-                    } else {
-                      canEat = "You can't eat this";
-                    }
-                  } else {
-                    name = "Error With Scanning";
-                    whichAllergens = "";
-                    ingredients = "Please Try Again";
-                  }
-
-                  // for(int i = 0; i < allergies.length; i++){
-                  //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
-                  //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
-                  //   }else{
-                  //     whichAllergens += "No Allergen: ${allergies[i]}\n";
-                  //   }
-                  // }
-                  Allergens();
-                });
+              onPressed: () {
+                
               },
               child: const Text('Open Scanner'),
             ),
@@ -149,103 +67,103 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
           child: GNav(
+              onTabChange: (index) async {
+                if (index == 1) {
+                  var tempString;
+                  var res = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SimpleBarcodeScannerPage(),
+                      ));
+                  if (res is String) {
+                    tempString = res;
+                  }
 
-            
-            onTabChange: (index) async{
+                  var product = await OpenFoodAPIClient.getProductV3(
+                    ProductQueryConfiguration(tempString,
+                        version: ProductQueryVersion.v3),
+                  );
 
-              if(index == 1){
+                  setState(() {
+                    if (product.product != null) {
+                      name =
+                          "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
+                      ingredients =
+                          product.product!. /*productName!*/ ingredientsText!;
+                      List<Ingredient>? ingredientsList =
+                          product.product?.ingredients;
+                      List<String>? allergensList = [];
+                      whichAllergens = "";
 
-                var tempString;
-                var res = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SimpleBarcodeScannerPage(),
-                    ));
-                if (res is String) {
-                  tempString = res;
-                }
+                      for (int i = 0; i < allergies.length; i++) {
+                        allergensList.add("");
+                      }
 
-                var product = await OpenFoodAPIClient.getProductV3(
-                  ProductQueryConfiguration(tempString,
-                      version: ProductQueryVersion.v3),
-                );
+                      for (int i = 0; i < ingredientsList!.length; i++) {
+                        String? currentIngredient = ingredientsList[i].text;
 
-                setState(() {
-                  if (product.product != null) {
-                    name =
-                        "Product: ${product.product?.getBestProductName(OpenFoodFactsLanguage.ENGLISH) /*getProductNameBrand(OpenFoodFactsLanguage.ENGLISH, " ")*/}";
-                    ingredients =
-                        product.product!. /*productName!*/ ingredientsText!;
-                    List<Ingredient>? ingredientsList =
-                        product.product?.ingredients;
-                    List<String>? allergensList = [];
-                    whichAllergens = "";
+                        for (int j = 0; j < allergies.length; j++) {
+                          //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
+                          if (allergensList[j].compareTo("") == 0 ||
+                              allergensList[j].contains("No")) {
+                            if (currentIngredient!
+                                .toUpperCase()
+                                .contains(allergies[j].toUpperCase())) {
+                              allergensList.insert(
+                                  j, "Has Allergen: $currentIngredient\n");
 
-                    for (int i = 0; i < allergies.length; i++) {
-                      allergensList.add("");
-                    }
+                              allergensList.removeAt(j + 1);
+                            } else {
+                              allergensList.insert(
+                                  j, "No Allergen: ${allergies[j]}\n");
 
-                    for (int i = 0; i < ingredientsList!.length; i++) {
-                      String? currentIngredient = ingredientsList[i].text;
-
-                      for (int j = 0; j < allergies.length; j++) {
-                        //whichAllergens += "${currentIngredient!.toUpperCase()}-${allergies[j].toUpperCase()}/";
-                        if (allergensList[j].compareTo("") == 0 ||
-                            allergensList[j].contains("No")) {
-                          if (currentIngredient!
-                              .toUpperCase()
-                              .contains(allergies[j].toUpperCase())) {
-                            allergensList.insert(
-                                j, "Has Allergen: $currentIngredient\n");
-
-                            allergensList.removeAt(j + 1);
-                          } else {
-                            allergensList.insert(
-                                j, "No Allergen: ${allergies[j]}\n");
-
-                            allergensList.removeAt(j + 1);
+                              allergensList.removeAt(j + 1);
+                            }
                           }
                         }
                       }
-                    }
 
-                    for (int i = 0; i < allergensList.length; i++) {
-                      if (!allergensList[i].contains("No")) {
-                        whichAllergens += allergensList[i];
+                      for (int i = 0; i < allergensList.length; i++) {
+                        if (!allergensList[i].contains("No")) {
+                          whichAllergens += allergensList[i];
+                        }
                       }
-                    }
 
-                    if (whichAllergens.compareTo("") == 0) {
-                      canEat = "You can eat this";
+                      if (whichAllergens.compareTo("") == 0) {
+                        canEat = "You can eat this";
+                      } else {
+                        canEat = "You can't eat this";
+                      }
                     } else {
-                      canEat = "You can't eat this";
+                      name = "Error With Scanning";
+                      whichAllergens = "";
+                      ingredients = "Please Try Again";
                     }
-                  } else {
-                    name = "Error With Scanning";
-                    whichAllergens = "";
-                    ingredients = "Please Try Again";
-                  }
 
-                  // for(int i = 0; i < allergies.length; i++){
-                  //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
-                  //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
-                  //   }else{
-                  //     whichAllergens += "No Allergen: ${allergies[i]}\n";
-                  //   }
-                  // }
-                });
+                    // for(int i = 0; i < allergies.length; i++){
+                    //   if(ingredients.toUpperCase().contains(allergies[i].toUpperCase())){
+                    //     whichAllergens += "Has Allergen: ${allergies[i]}\n";
+                    //   }else{
+                    //     whichAllergens += "No Allergen: ${allergies[i]}\n";
+                    //   }
+                    // }
+                  });
 
-                // setState((){
-                // _selectedIndex = index;
-                // });
+                  // setState((){
+                  // _selectedIndex = index;
+                  // });
 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Allergens()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => display.Allergens(),
+                    ),
+                  );
 
-              }
+                  
+                }
+              },
 
-              
-            },
-            
               //color: Color.fromARGB(255, 195, 131, 27),
               gap: 9,
               activeColor: Colors.black,

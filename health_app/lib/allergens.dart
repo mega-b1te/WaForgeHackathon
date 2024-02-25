@@ -11,6 +11,15 @@ class Allergens extends StatefulWidget {
 }
 
 class AllergensState extends State<Allergens> {
+
+  int _selectedIndex = 0;
+  String name = 'Initial Name';
+  String ingredients = 'Initial Ingredients';
+  String whichAllergens = 'Initial No Allergens';
+  String canEat = 'You can Eat';
+  List<String> allergies = ["Peanut", "Egg", "Sugar"];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
