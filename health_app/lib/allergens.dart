@@ -66,7 +66,7 @@ class AllergensState extends State<Allergens> {
                                         .textTheme
                                         .headlineLarge,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ],
