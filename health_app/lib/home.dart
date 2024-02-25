@@ -13,6 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String name = 'Initial Name';
   String ingredients = 'Initial Ingredients';
   String whichAllergens = 'Initial No Allergens';
+  String canEat = 'You can Eat';
   List<String> allergies = ["Peanut", "Egg", "Sugar"];
 
   @override
@@ -38,8 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
               style: const TextStyle(fontSize: 10),
             ),
             Text(
-              whichAllergens,
+              canEat,
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Text(
+              whichAllergens,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             ElevatedButton(
               onPressed: () async {
@@ -100,7 +105,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
 
                     for (int i = 0; i < allergensList.length; i++) {
-                      whichAllergens += allergensList[i];
+                      if(!allergensList[i].contains("No")){
+                        whichAllergens += allergensList[i];
+                      }
+                    }
+
+                    if(whichAllergens.compareTo("") == 0){
+                      canEat = "You can eat this";
+                    }else{
+                      canEat = "You can't eat this";
                     }
                   }else{
                     name =
