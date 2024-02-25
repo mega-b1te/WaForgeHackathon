@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -24,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.USA;
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(),
       body: Center(
         child: Column(
@@ -106,14 +109,51 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               child: const Text('Open Scanner'),
-            )
+            ),
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      bottomNavigationBar: Container(
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: GNav(
+              //color: Color.fromARGB(255, 195, 131, 27),
+              gap: 9,
+              activeColor: Colors.black,
+              padding: EdgeInsets.all(16),
+              tabs: [
+                GButton(
+                  icon: Icons.home,
+                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  text: 'Home',
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                GButton(
+                  icon: Icons.camera_alt,
+                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  text: 'Scan',
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                GButton(
+                  icon: Icons.person,
+                  iconColor: Color.fromARGB(255, 113, 70, 0),
+                  text: 'Food',
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ]),
+        ),
       ),
     );
   }
