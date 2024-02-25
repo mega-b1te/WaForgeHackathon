@@ -11,6 +11,7 @@ class Allergens extends StatefulWidget {
   final String ingredients;
   final String whichAllergens;
   final String canEat;
+  final String image;
   final List<String> allergies;
 
   const Allergens({
@@ -19,6 +20,7 @@ class Allergens extends StatefulWidget {
     required this.ingredients,
     required this.whichAllergens,
     required this.canEat,
+    required this.image,
     required this.allergies,
   }) : super(key: key);
 
@@ -84,6 +86,7 @@ class AllergensState extends State<Allergens> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           //const Spacer(),
+                          Image.network(widget.image),
                           Text(
                             widget.canEat,
                             style: const TextStyle(
