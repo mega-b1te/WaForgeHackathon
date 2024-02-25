@@ -4,6 +4,7 @@ import 'package:health_app/profile.dart' as profile;
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:health_app/theme.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -34,9 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(),
-      body: Center(
-        
-      ),
+      body: Center(),
       bottomNavigationBar: Container(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
@@ -140,9 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   );
-
-                  
-                }//else if(index == 2){
+                } //else if(index == 2){
                 //   Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
@@ -184,13 +181,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 GButton(
+                  backgroundColor: ThemeClass().secondaryColor,
                   icon: Icons.person,
-                  iconColor: Color.fromARGB(255, 141, 178, 182),
+                  iconColor: ThemeClass().secondaryColor,
                   text: 'Profile',
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 141, 178, 182),
+                    color: ThemeClass().wColor,
                   ),
                 ),
               ]),
