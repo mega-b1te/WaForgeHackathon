@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         } else {
                           canEat = "You can't eat this";
                         }
-                      }else{
+                      } else {
                         name = "Error With Scanning";
                         whichAllergens = "";
                         ingredients = "Please Try Again";
@@ -171,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 GButton(
                   backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.home,
-                  iconColor: ThemeClass().primaryColor,
+                  iconColor: ThemeClass().wColor,
                   text: 'Home',
                   textStyle: TextStyle(
                     fontSize: 18,
@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 GButton(
                   backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.camera_alt,
-                  iconColor: ThemeClass().primaryColor,
+                  iconColor: ThemeClass().wColor,
                   text: 'Scan',
                   textStyle: TextStyle(
                     fontSize: 18,
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 GButton(
                   backgroundColor: ThemeClass().primaryColor,
                   icon: Icons.person,
-                  iconColor: ThemeClass().primaryColor,
+                  iconColor: ThemeClass().wColor,
                   text: 'Profile',
                   textStyle: TextStyle(
                     fontSize: 18,
